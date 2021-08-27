@@ -4,6 +4,7 @@ import data from './config/data.json';
 import PublicationModal from './components/PublicationModal';
 import UploadAPictureModal from './components/UploadAPictureModal';
 import EditProfileModal from './components/EditProfileModal';
+import PublicationsComponent from './components/PublicationsComponent';
 
 function App() {
   const [state, setState] = useState(data);
@@ -20,13 +21,6 @@ function App() {
   const formatDate = (date) => {
     const newDate = new Date(date);
     return `${newDate.getDate()}/${newDate.getMonth() + 1}/${newDate.getFullYear()}`;
-  }
-   
-  const openPreview = (postNumber) => {
-    setPreviewState({
-      previewItem: postNumber,
-      previewPublicationModal: true,
-    });
   }
    
   return (
@@ -74,25 +68,7 @@ function App() {
           </Card>
         </Col>
       </Row>
-      <Row type="flex" justify="center">
-        <Col sm={18} xs={24}>
-          <Col span={24} className="container text-center">
-            <h2>
-              <Icon type="save" />
-              <span className="span-icon">Publications</span>
-            </h2>
-            <Card bordered className="card-pubs" onClick={() => openPreview(0)}>
-              <img src={state.profileData.posts[0].imageUrl} width={200} height={200} alt={state.profileData.posts[0].imageUrl} />
-            </Card>
-            <Card bordered className="card-pubs" onClick={() => openPreview(1)}>
-              <img src={state.profileData.posts[1].imageUrl} width={200} height={200} alt={state.profileData.posts[1].imageUrl} />
-            </Card>
-            <Card bordered className="card-pubs" onClick={() => openPreview(2)}>
-              <img src={state.profileData.posts[2].imageUrl} width={200} height={200} alt={state.profileData.posts[2].imageUrl} />
-            </Card>
-          </Col>
-        </Col>
-      </Row>
+      <PublicationsComponent posts={state.profileData.posts} setPreviewState={setPreviewState} />
     </div>
   );
 }
